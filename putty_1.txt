@@ -1,0 +1,62 @@
+ izba  | CREATE TABLE `izba` (
+  `adres_budynku` varchar(40) NOT NULL,
+  `nazwa_izby` varchar(50) NOT NULL,
+  `metraz` int unsigned DEFAULT NULL,
+  `kolor` varchar(20) DEFAULT 'czarny',
+  `wlasciciel` int DEFAULT NULL,
+  PRIMARY KEY (`adres_budynku`,`nazwa_izby`),
+  KEY `wlasciciel` (`wlasciciel`),
+  CONSTRAINT `izba_ibfk_1` FOREIGN KEY (`wlasciciel`) REFERENCES `postac` (`id_postaci`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
+
+
+CREATE TABLE `przetwory` (
+    ->   `id_przetworu` int NOT NULL,
+    ->   `rok_produkcji` int unsigned DEFAULT NULL,
+    ->   `id_wykonawcy` int DEFAULT NULL,
+    ->   `zawartosc` varchar(256) DEFAULT NULL,
+    ->   `dodatek` varchar(256) DEFAULT 'papryczka chilli',
+    ->   `id_konsumenta` int DEFAULT NULL,
+    -> foreign key(id_wykonawcy) references postac(id_postaci),
+    -> foreign key(id_konsumenta) references postac(id_postaci));
+
+
+INSERT INTO przetwory VALUES (1,1924,1,'bigos',default,1);
+
+
+Zad 5
+1)
+ INSERT INTO postac VALUES (null,'Tomek','wiking','1672-10-10',50);
+INSERT INTO postac VALUES (null,'Jacek','wiking','1642-10-10',80), 
+(null,'Jan','wiking','1683-12-12',23);
+INSERT INTO postac VALUES (null,'Piotr','wiking','1699-11-13',20),
+ (null,'Zbigniew','wiking','1650-10-12',50);
+
+2)
+
+CREATE TABLE `statek` (
+  `nazwa_statku` varchar(40) NOT NULL,
+  `rodzaj_statku` enum('jednozaglowy','dwuzaglowy','trzyzaglowy') DEFAULT NULL,
+  `data_wodowania` date DEFAULT NULL,
+  `max_ladownosc` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`nazwa_statku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
+
+3)
+ INSERT INTO statek VALUES ('czarna perla','trzyzaglowy','2020-10-10',1000),
+    -> ('barka', 'dwuzaglowy','2010-10-10',2137);
+
+4) ALTER TABLE postac ADD funkcja varchar(40);
+
+5) UPDATE postac set funkcja='zaloga' WHERE id_postaci in(2,4,7,8,12,13);
+UPDATE postac SET funkcja='kapitan' WHERE nazwa='Bjorn';
+
+6) ALTER TABLE postac ADD COLUMN statek varchar(40);
+ ALTER TABLE postac ADD FOREIGN KEY(statek) REFERENCES statek(nazwa_statku);
+
+7)UPDATE postac SET statek='barka' WHERE id_postaci in (1,2,8,12,13);
+ UPDATE postac SET statek='czarna perla' WHERE id_postaci in (4,7);
+
+8) DELETE FROM izba WHERE nazwa_izby='spizarnia';
+ 
+9) DROP TABLE izba;
