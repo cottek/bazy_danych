@@ -1,0 +1,59 @@
+#lab5 zadanie 1.1
+create table kreatura select * from wikingowie.kreatura;
+create table zasob select * from wikingowie.zasob;
+create table ekwipunek select * from wikingowie.ekwipunek;
+
+#lab5 zadanie 1.2
+SELECT * FROM zasob;
+
+#lab5 zadanie 1.3
+SELECT * FROM zasob where rodzaj='jedzenie';
+
+#lab5 zadanie 1.4
+SELECT idZasobu,ilosc FROM zasob where idZasobu in(1,3,5);
+
+#lab5 zadanie 2.1
+SELECT * FROM kreatura WHERE rodzaj!='wiedzma' AND udzwig>=50;
+
+#lab5 zadanie 2.2
+SELECT * FROM zasob where waga>=2 AND waga<=5;
+
+#lab5 zadanie 2.3
+SELECT * FROM kreatura;
+SELECT * FROM kreatura WHERE nazwa LIKE '%or%' AND (udzwig>=30 AND udzwig<=70);
+
+#lab5 zadanie 3.1
+select dataPozyskania, 
+year(dataPozyskania),
+ month(dataPozyskania),
+ day(dataPozyskania) from wikingowie.zasob ;
+select * from wikingowie.zasob WHERE month(dataPozyskania) in (7,8);
+
+#lab5 zadanie 3.2
+SELECT * from wikingowie.zasob where rodzaj is not null ORDER BY waga ASC;
+
+#lab5 zadanie 3.3
+select * from wikingowie.kreatura order by dataur limit 5;
+
+#lab5 zadanie 4.1
+SELECT DISTINCT rodzaj from wikingowie.zasob;
+select distinct nazwa, dataPozyskania from wikingowie.zasob;
+select distinct(rodzaj) from zasob;
+
+#lab5 zadanie 4.2
+SELECT CONCAT(nazwa,' - ',rodzaj) FROM wikingowie.kreatura WHERE rodzaj LIKE 'wi%';
+
+#lab5 zadanie 4.3
+SELECT nazwa, ilosc*waga, dataPozyskania FROM wikingowie.zasob
+ where year(dataPozyskania) between 2000 AND 2007;
+
+#lab5 zadanie 5.1
+SELECT nazwa, ilosc*waga*0.7 as waga_netto,
+ ilosc*waga*0.3 as odpadki from wikingowie.zasob where rodzaj='jedzenie';
+
+#lab5 zadanie 5.2
+SELECT * FROM wikingowie.zasob WHERE rodzaj is null;
+
+#lab5 zadanie 5.3
+SELECT DISTINCT nazwa, rodzaj FROM wikingowie.zasob 
+where nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY nazwa ASC;
